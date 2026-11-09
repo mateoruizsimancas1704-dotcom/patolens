@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b5ea8"><meta name="apple-mobile-web-app-capable" content="yes">
+<title>PatoLens</title>
+<link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="lib/leaflet/leaflet.css" onerror="this.onerror=null;this.href='https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css'">
+<link rel="stylesheet" href="styles.css"></head><body>
+<div id="cover"><div class="lg"><img src="logo-jbc.png" alt="JBC Net Consulting"></div><h1>Pato<span>Lens</span></h1><button id="go">Entrar</button></div>
+<div id="app" hidden>
+<header><img src="logo-jbc.png" alt=""><b>PatoLens</b><span id="tit"></span></header>
+<main>
+<section id="t-fichas"><button class="p" id="nueva" style="width:100%;padding:13px">+ Nueva ficha</button><div id="lista"></div></section>
+
+<section id="t-fotos" hidden>
+ <div class="card"><div class="stage" id="stage"><div class="phd" id="ph">📷</div><video id="vid" playsinline muted autoplay hidden></video><canvas id="cv" hidden></canvas><canvas id="ov" hidden></canvas></div>
+ <div class="row"><button class="p" id="bPhoto">📷 Tomar foto</button><button id="bFile">🖼 Galería</button></div>
+ <div class="row"><button id="bCam">🎥 En vivo</button><button id="bShot" disabled>⏺ Capturar</button></div>
+ <div class="row"><button id="bGauge">🔬 Fisurómetro</button><button id="bRot" hidden>↻ Girar</button></div>
+ <div class="row ctr" id="gCal" hidden><input type="range" id="gS" min="1" max="60" step="0.1" value="4"><input type="number" id="gRef" value="24" min="1" step="1" style="width:72px"><span>mm</span></div>
+ <input type="file" id="file" accept="image/*" capture="environment" hidden><input type="file" id="fileG" accept="image/*" hidden><p class="msg" id="camMsg"></p></div>
+ <div class="card" id="tools" hidden><div class="row"><button id="bCal">📏 Calibrar</button><button id="bMed">↔ Medir</button><button id="bGrid">▦ Malla mm</button><button id="bClr">✕</button></div>
+ <div class="row ctr" id="calRow" hidden><input type="number" id="calMM" min="0.1" step="0.1" value="24"><span>mm</span><button class="p" id="bApply" style="flex:0 0 auto">Aplicar</button></div>
+ <p class="msg" id="mInfo"></p><button class="p" id="gGuardar" style="width:100%;padding:13px">💾 Guardar en galería</button></div>
+ <div class="gal" id="gal"></div>
+</section>
+
+<section id="t-ficha" hidden>
+ <div class="card"><h3>Proyecto</h3><div class="f" id="fDatos"></div></div>
+ <div class="card"><h3>Ubicación</h3><div class="f" id="fUbic"></div>
+  <div class="row"><button id="bBus">🔎 Buscar</button><button id="bGps">📍 Mi ubicación</button></div>
+  <div id="mapa"></div><p class="msg" id="coords"></p>
+  <div class="row" id="lnks" hidden><a class="btn" id="lEarth" target="_blank" rel="noopener">🌍 Google Earth</a><a class="btn" id="lMaps" target="_blank" rel="noopener">🗺 Google Maps</a></div></div>
+ <div class="card"><h3>Lesión</h3><div class="f" id="fLes"></div>
+  <button class="p" id="bIA" style="width:100%;margin-top:10px;padding:13px">🧠 Clasificar con IA</button><div id="iaRes"></div></div>
+ <div class="card"><h3>Registro fotográfico</h3><div class="row" id="slots"></div></div>
+ <div class="card"><h3>Planos</h3><div id="plans"></div></div>
+ <div class="card"><h3>Informe de rehabilitación</h3><button class="p" id="bInf" style="width:100%;padding:13px">📝 Generar informe con IA</button><textarea id="informe" rows="10" style="margin-top:8px;width:100%"></textarea></div>
+ <div class="row"><button class="p" id="bGuardar">💾 Guardar</button><button class="p" id="bPdf">📄 PDF</button></div>
+</section>
+
+<section id="t-ajustes" hidden>
+ <div class="card"><h3>Claves de IA</h3><div id="pv"></div><div class="f"><label>IA para informes</label><select id="aIA"></select></div><button class="p" id="bK" style="width:100%;margin-top:10px">Guardar</button></div>
+ <div class="card"><h3>Valores por defecto</h3><div class="f"><div><label>Proyecto</label><input id="aProy"></div><div><label>Analistas</label><textarea id="aAn" rows="3"></textarea></div></div><button class="p" id="bD" style="width:100%;margin-top:10px">Guardar</button></div>
+ <div class="card"><h3>Base de datos</h3><div class="row"><button id="bExp">⬆ Exportar</button><button id="bImp">⬇ Importar</button></div><input type="file" id="impF" accept="application/json" hidden></div>
+</section>
+</main>
+<nav><button id="n-fichas" class="on"><i>🗂</i>Fichas</button><button id="n-fotos"><i>📷</i>Fotos</button><button id="n-ficha"><i>📋</i>Ficha</button><button id="n-ajustes"><i>⚙️</i>Ajustes</button></nav>
+</div>
+<div id="modal" hidden><div class="mbox"><div class="gal" id="mg"></div><button id="mc" style="width:100%;margin-top:10px">Cerrar</button></div></div>
+<div id="toast" hidden></div>
+<script src="config.js"></script><script src="db.js"></script><script src="ai.js"></script><script src="fisurometro.js"></script><script src="mapa.js"></script><script src="pdf.js"></script><script src="app.js"></script>
+</body></html>

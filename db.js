@@ -1,0 +1,3 @@
+PL.db=(()=>{let h;const open=()=>h||(h=new Promise((ok,ko)=>{const r=indexedDB.open('patolens',1);r.onupgradeneeded=()=>{const d=r.result;d.createObjectStore('fichas',{keyPath:'id',autoIncrement:true});d.createObjectStore('fotos',{keyPath:'id',autoIncrement:true});};r.onsuccess=()=>ok(r.result);r.onerror=()=>ko(r.error);}));
+const tx=async(s,m,f)=>{const d=await open();return new Promise((ok,ko)=>{const t=d.transaction(s,m),q=f(t.objectStore(s));t.oncomplete=()=>ok(q&&q.result);t.onerror=()=>ko(t.error);});};
+return{put:(s,o)=>tx(s,'readwrite',x=>x.put(o)),get:(s,i)=>tx(s,'readonly',x=>x.get(i)),all:s=>tx(s,'readonly',x=>x.getAll()),del:(s,i)=>tx(s,'readwrite',x=>x.delete(i))};})();
